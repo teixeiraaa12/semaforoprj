@@ -1,3 +1,20 @@
+//gerencia o sinal de Wifi
+#include <WiFi.h>
+#include <WiFiClient.h>
+//gera servico http no esp32
+#include <WebServer.h>
+#include <string.h>
+webServer Server(80);
+//definição nome, senha e canal do wifi
+//#define WIFI_SSID "devsenai"
+//#define WIFI_PASSWORD "sesisenai"
+//#define WIFI_CHANNEL 6
+const char *ssid = "teixeira";
+const char *password = "12345";
+IPAddress local_IP(192, 168, 4, 22);
+IPAddress gateway(192, 168, 4, 9);
+IPAddress subnet(255, 255, 255, 0);
+
 const int ledRed1 = 15;
 const int ledYel1 = 2;
 const int ledGreen1 = 4;
@@ -11,6 +28,15 @@ int timeRed = 8000;
 
 
 void setup(){
+ Serial.begin(115200);
+  //Configuração do Acess Point que ira ser fornecido pelo ESP32
+  Serial.print("Configurando AP.....");
+  Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet)? "OK" : "Erro");
+  Serial.println("Iniciando o Wifi.....");
+  Serial.println(WiFi.softAP(ssid, password));
+  Serial.print("Endereço IP");
+  Serial.println(WiFi.softAPIP());
+
   pinMode(ledRed1, OUTPUT);
   pinMode(ledRed2, OUTPUT);
   pinMode(ledYel1, OUTPUT);
