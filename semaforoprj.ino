@@ -4,13 +4,13 @@
 //gera servico http no esp32
 #include <WebServer.h>
 #include <string.h>
-webServer Server(80);
+WebServer Server(80);
 //definição nome, senha e canal do wifi
 //#define WIFI_SSID "devsenai"
 //#define WIFI_PASSWORD "sesisenai"
 //#define WIFI_CHANNEL 6
-const char *ssid = "teixeira";
-const char *password = "12345";
+const char *ssid = "WifiTeixeira";
+const char *password = "123456789";
 IPAddress local_IP(192, 168, 4, 22);
 IPAddress gateway(192, 168, 4, 9);
 IPAddress subnet(255, 255, 255, 0);
@@ -33,7 +33,7 @@ void setup(){
   Serial.print("Configurando AP.....");
   Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet)? "OK" : "Erro");
   Serial.println("Iniciando o Wifi.....");
-  Serial.println(WiFi.softAP(ssid, password));
+  Serial.println(WiFi.softAP(ssid, password)? "OK" : "Erro");
   Serial.print("Endereço IP");
   Serial.println(WiFi.softAPIP());
 
